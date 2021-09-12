@@ -30,6 +30,7 @@
     "buyer" : "Buyer",
     "transaction" : "Transaction",
     "password_change" : "Password Change",
+    "verify_me" : "Verify Me",
     "orders" : "Orders"
   },
   "quotation":{

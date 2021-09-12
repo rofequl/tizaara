@@ -35,7 +35,7 @@
           <div class="row">
             <div class="col-md-4">
               <image-magnifier :src="current_image?current_image:showImage(product.thumbnail_img)"
-                          :zoom-src="current_image?current_image:showImage(product.thumbnail_img)"
+                               :zoom-src="current_image?current_image:showImage(product.thumbnail_img)"
                                width="100%"
                                height="320px"
                                zoom-width="500"
@@ -55,12 +55,13 @@
                 <h5>{{ product.name }}</h5>
                 <p class="text-muted">{{ product.sort_desc }}</p>
                 <!--   rating and review count section         -->
+                <img v-if="companyProfile.is_verified===1" :src="showImage('verified.png')" width="20%" height="20px" alt="verified" />
                 <span class="text-danger" style="font-size: 18px; max-width: 5%">
-              <b-form-rating class="col-sm-2 transparent-input" size="sm"
-                             v-model="parseFloat(ratingCalculation()).toFixed(2)" readonly variant="danger" inline
-                             no-border></b-form-rating>
-                                                 {{ parseFloat(ratingCalculation()).toFixed(2) }}
-            </span>
+                  <b-form-rating class="col-sm-2 transparent-input" size="sm"
+                                 v-model="parseFloat(ratingCalculation()).toFixed(2)" readonly variant="danger" inline
+                                 no-border></b-form-rating>
+                                                     {{ parseFloat(ratingCalculation()).toFixed(2) }}
+                </span>
                 <span style="font-size: 18px;"> <span
                     class="text-danger">   {{ reviewCount() }}</span> {{ $t("message.single_product.review") }} <span
                     class="text-danger">{{ product.num_of_sale }}</span> {{ $t("message.single_product.buyer") }}</span>

@@ -64,7 +64,11 @@
                     <p>{{ company_basic.office_space }}</p>
                   </div>
                 </div>
-
+                <div class="col-lg-2 col-md-5 col-2 d-md-flex align-items-md-stretch" v-if="company_basic.is_verified===1">
+                  <div class="count-box pb-5 pt-0 pt-lg-5">
+                    <img :src="showImage('verified.png')" width="80%" height="80px" alt="verified" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

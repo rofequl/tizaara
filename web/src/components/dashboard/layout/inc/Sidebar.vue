@@ -53,6 +53,12 @@
                 {{ $t("message.sidebar.membership_plan") }}
               </router-link>
             </li>
+            <li :class="$route.name === 'dashboard.verify.supplier'?'active':''">
+              <router-link :to="{name:'dashboard.verify.supplier'}">
+                <i class="menu-icon fa fa-check-circle" aria-hidden="true"></i>
+                {{ $t("message.sidebar.verify_me") }}
+              </router-link>
+            </li>
           </template>
           <template>
             <li v-if="isBuyer" class="menu-title">{{ $t("message.sidebar.buyer") }}</li>

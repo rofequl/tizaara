@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class CompanyBasicInfo extends Model
 {
-    protected $hidden=['created_at','updated_at'];
+    protected $fillable = [
+        'user_id', 'address_type', 'reg_address_id', 'ope_address_id', 'name',
+        'display_name', 'establishment_date', 'office_space', 'website', 'email',
+        'phone', 'cell', 'fax', 'number_of_employee', 'ownership_type',
+        'revenue', 'main_product', 'other_product', 'is_verified'
+    ];
+    protected $hidden=['updated_at'];
 
     public function user()
     {

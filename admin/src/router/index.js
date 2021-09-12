@@ -169,6 +169,12 @@ export default new Router({
                     component: () => import("@/components/seller/AllSeller")
                 },
                 {
+                    meta: {title: 'Verify Request'},
+                    path: "/seller/verify/request",
+                    name: "seller-verify-request",
+                    component: () => import("@/components/seller/SellerVerifyRequest")
+                },
+                {
                     meta: {title: 'Seller Commission'},
                     path: "/seller/seller-commission",
                     name: "seller-commission",

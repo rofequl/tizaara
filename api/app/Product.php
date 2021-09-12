@@ -92,7 +92,14 @@ class Product extends Model
     {
         return $this->hasMany(ProductRating::class);
     }
-
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function avgRating()
+    {
+        return $this->productRating()->avg('rating');
+    }
     public function productColors()
     {
         return $this->belongsToMany(Color::class)->withTimestamps();

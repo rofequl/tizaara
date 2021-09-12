@@ -94,4 +94,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Quotation::class);
     }
+    public function verifyRequest()
+    {
+        return $this->hasMany(VerifyRequest::class);
+    }
 }

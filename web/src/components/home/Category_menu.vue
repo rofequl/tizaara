@@ -47,13 +47,19 @@
             <div class="main-menu">
               <ul class="nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">{{ $t("message.category_menu.popular_items") }}</a>
+                  <router-link :to="{name:'popular.item'}" class="nav-link">
+                    {{ $t("message.category_menu.popular_items") }}
+                  </router-link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">{{ $t("message.category_menu.verified_supplier") }}</a>
+                  <router-link :to="{name:'verified.suppliers'}" class="nav-link">
+                    {{ $t("message.category_menu.verified_supplier") }}
+                  </router-link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">{{ $t("message.category_menu.top_supplier") }}</a>
+                  <router-link :to="{name:'top.suppliers'}" class="nav-link">
+                    {{ $t("message.category_menu.top_supplier") }}
+                  </router-link>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#" v-b-modal.modal-1>{{ $t("message.category_menu.submit_RFQ") }}</a>
@@ -110,7 +116,10 @@
         </div> <!-- .row end -->
       </div><!-- .container end -->
     </div>
-    <b-modal id="modal-1" size="lg" centered hide-footer hide-header body-class="p-0">
+    <b-modal id="modal-1" size="lg" centered hide-footer  body-class="p-0">
+      <template #modal-title>
+        <center>RFQ Request</center>
+      </template>
       <b-container fluid>
         <b-row>
           <b-col style="background-color: #0E63B0" class="rounded py-3 text-white">
@@ -269,14 +278,14 @@ export default {
             })
             .finally(() => this.$bvModal.hide("modal-1"))
       }
-    }
+    },
   },
   computed: {
     ...mapGetters(["getHomeBanner", "getSubcategoryById", "categoryList", "getSubsubcategoryById", "isAuthenticated", "unitList"])
   },
   created() {
     this.loadSlider(this.getHomeBanner);
-    this.$store.dispatch(UNIT_LIST)
+    this.$store.dispatch(UNIT_LIST);
   },
   watch: {
     getHomeBanner(data) {

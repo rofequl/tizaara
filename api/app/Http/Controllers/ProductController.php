@@ -31,7 +31,9 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admins', ['except' => ['productListing','topCityProducts','companyProducts', 'search', 'searchName','singleProductBySlug','basicProduct']]);
+        $this->middleware('auth:admins', ['except' => [
+            'productListing','topCityProducts','topItems','topSuppliers','verifiedSuppliers',
+            'companyProducts', 'search', 'searchName','singleProductBySlug','basicProduct']]);
     }
 
     use FileUpload;
@@ -818,4 +820,85 @@ class ProductController extends Controller
         return response()->json($products,200);
     }
 
+    /*
+     * method for get top items
+     * */
+
+    public function topItems()
+    {
+        $products=Product::with([
+            'brand'=>function($q){$q->select('id','name');},
+            'unit'=>function($q){$q->select('id','name');},
+            'currency'=>function($q){$q->select('id','name','code','symbol','exchange_rate');},
+            'price_variation'=>function($q){$q->select('id','product_id','off_price','min_qty','max_qty');},
+            'product_stock',
+            'user'=>function($q){$q->select('id','account_type','telephone','membership_plan_id','first_name','last_name');},
+            'user.companyBasicInfo'=>function($q){
+                $q->with(['businessTypes'])->get(['id','user_id','name','establishment_date','office_space','ownership_type','phone']);
+            },
+            'flashDealProducts'=>function($q){$q->with([
+                'flashDeal'=>function($r){$r->where('status',1)->where('start_date','<=',Carbon::today())->where('end_date','>=',Carbon::today());}
+            ]);},
+
+        ])->withCount([
+            'productRating'=> function ($query) {
+                $query->select(DB::raw("AVG(rating) as avgRating"));
+            },
+            'productReviews','orders'
+        ])->where(['is_approved'=>1])->orderBy('updated_at','DESC')->inRandomOrder()->limit(30)->get();
+        /*
+         * product unique brand name list
+         * */
+        $brands = Brand::whereIn('id',$products->pluck('brand_id')->unique()->whereNotNull())->get(['id','name']);
+        /*
+         * product unique colors name list
+         * */
+        $colors = Color::whereIn('id',DB::table('color_product')->whereIn('product_id',$products->pluck('id'))->pluck('color_id')->unique())->get(['id','name']);
+
+        return response()->json(['brands'=>$brands,'products'=>$products,'colors'=>$colors],200);
+    }
+
+    /*
+     * method for get top suppliers
+     * */
+
+    public function topSuppliers()
+    {
+        $products=Product::withCount([
+            'productRating'=> function ($query) {
+                $query->select(DB::raw("AVG(rating) as avgRating"));
+            },
+            'productReviews','orders'
+        ])->where(['is_approved'=>1]);
+        $user_ids= $products->orderBy('product_rating_count', 'desc')
+            ->orderBy('product_reviews_count', 'desc')
+            ->orderBy('orders_count', 'desc')
+            ->pluck('user_id')->unique()->whereNotNull()->toArray();
+        $users = User::with([
+            'companyBasicInfo'=>function($q){
+                $q->with(['businessTypes'])->get(['id','user_id','name','establishment_date','office_space','ownership_type','phone']);
+            },
+            'companyDetails'
+        ])->whereIn('id',$user_ids)->orderByRaw('FIELD(id, '.implode(',', $user_ids).')')->get();
+
+        return response()->json($users,200);
+    }
+
+    /*
+     * method for get top suppliers
+     * */
+
+    public function verifiedSuppliers()
+    {
+        $user_ids= CompanyBasicInfo::where(['is_verified'=>1])
+            ->pluck('user_id')->unique()->whereNotNull()->toArray();
+        $users = User::with([
+            'companyBasicInfo'=>function($q){
+                $q->with(['businessTypes'])->get(['id','user_id','name','establishment_date','office_space','ownership_type','phone']);
+            },
+            'companyDetails'
+        ])->whereIn('id',$user_ids)->orderByRaw('FIELD(id, '.implode(',', $user_ids).')')->get();
+
+        return response()->json($users,200);
+    }
 }

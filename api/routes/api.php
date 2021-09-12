@@ -66,6 +66,11 @@ Route::group(['middleware' => 'api', 'prefix' => 'user', 'namespace' => 'User'],
 
     Route::post('register-membership-plan/{id}', 'MembershipPlanController@register');
     Route::get('get/all/membership/plan', 'MembershipPlanController@getAll');
+
+    Route::post('verification/request/store','UserController@verifyRequestStore');
+
+    Route::get('all/verify/requests','UserController@verifyRequests');
+    Route::post('verify/request/status/change{verify_request}/{status}','UserController@verify');
 });
 
 Route::group(['middleware' => 'api', 'namespace' => 'User'], function ($router) {
@@ -187,6 +192,10 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('product-name', 'ProductController@searchName');
     Route::get('single/product/information/{slug}', 'ProductController@singleProductBySlug');
     Route::get('top/city/products{city}', 'ProductController@topCityProducts');
+    Route::get('top/item/products', 'ProductController@topItems');
+    Route::get('top/suppliers', 'ProductController@topSuppliers');
+    Route::get('verified/suppliers', 'ProductController@verifiedSuppliers');
+
     Route::resource('product-group', 'ProductGroupController');
     Route::get('get-product-group', 'ProductController@getProductGroup');
     Route::get('subcategory-slug/{data}', 'SubCategoryController@slug');
@@ -203,6 +212,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('get/company/basic/info{user}','CompanyController@companyBasic');
     Route::get('get/company/basic/info/by/display/name{display_name}','CompanyController@companyBasicByDisplayName');
     Route::get('get/company/details/by/user{user}','CompanyController@companyDetails');
+
 
     // Customer
     Route::resource('customer', 'CustomerController');

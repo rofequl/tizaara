@@ -17,7 +17,7 @@ const getters = {
         return state.companyBasic;
     },
     companyBasicInfoByUserID(state,id) {
-        return state.companyBasic.find(item=>item.user_id===id);
+        return state.companyBasic.find(item=>item.user_id===parseInt(id));
     },
 };
 

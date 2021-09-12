@@ -68,6 +68,24 @@ export default new Router({
                     props:true,
                     component: () => import("@/components/product/TopCityProduct"),
                 },
+                { //popular items product page routes
+                    meta: {title: 'Popular items | Tizaara'},
+                    path: "/popular/items",
+                    name: "popular.item",
+                    component: () => import("@/components/product/PopularItem"),
+                },
+                { //top supplier page routes
+                    meta: {title: 'Top Supplier | Tizaara'},
+                    path: "/top/suppliers",
+                    name: "top.suppliers",
+                    component: () => import("@/components/product/TopSupplier"),
+                },
+                { //verified supplier page routes
+                    meta: {title: 'Verified Supplier | Tizaara'},
+                    path: "/verified/suppliers",
+                    name: "verified.suppliers",
+                    component: () => import("@/components/product/VerifiedSupplier"),
+                },
                 { //cart page route
                     meta: {title: 'Cart | Tizaara'},
                     path: "/cart/view",
@@ -260,6 +278,12 @@ export default new Router({
                     path: "/dashboard/membership/plan",
                     name: "dashboard.membership.plan",
                     component: () => import("@/components/dashboard/membership/MemberShipPlan")
+                },
+                {
+                    meta: {title: 'Verify'},
+                    path: "/dashboard/verify/supplier",
+                    name: "dashboard.verify.supplier",
+                    component: () => import("@/components/dashboard/supplier/VerifySupplier.vue")
                 },
                 {
                     meta: {title: 'Transaction'},

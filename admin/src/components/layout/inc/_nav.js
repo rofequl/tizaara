@@ -72,6 +72,10 @@ export default [
                         to: '/seller/all-seller'
                     },
                     {
+                        name: 'Verify Request',
+                        to: '/seller/verify/request'
+                    },
+                    {
                         name: 'Seller Commission',
                         to: '/seller/seller-commission'
                     },
