@@ -1,4 +1,4 @@
- <template>
+<template>
   <div>
     <!-- Registration Modal -->
     <div class="modal fade" id="reg" tabindex="-1" role="dialog" aria-labelledby="reg" aria-hidden="true">
@@ -36,7 +36,8 @@
                 <div class="form-row mb-4">
                   <div class="form-group col-md-6">
                     <b-form-input class="form-control" id="first-name"
-                                  :placeholder= "$t('message.headers.first_name')" type="text" v-model="$v.formReg.first_name.$model"
+                                  :placeholder="$t('message.headers.first_name')" type="text"
+                                  v-model="$v.formReg.first_name.$model"
                                   :state="validateState('first_name')"></b-form-input>
                     <b-form-invalid-feedback v-if="!$v.formReg.first_name.required">
                       {{ $t("message.headers.first_name") }}
@@ -47,7 +48,8 @@
                   </div>
                   <div class="form-group col-md-6">
                     <b-form-input class="form-control" id="last-name"
-                                  :placeholder= "$t('message.headers.last_name')" type="text" v-model="$v.formReg.last_name.$model"
+                                  :placeholder="$t('message.headers.last_name')" type="text"
+                                  v-model="$v.formReg.last_name.$model"
                                   :state="validateState('last_name')"></b-form-input>
                     <b-form-invalid-feedback v-if="!$v.formReg.last_name.required">
                       {{ $t("message.headers.last_name") }}
@@ -74,7 +76,8 @@
                 <div class="form-row mb-2">
                   <div class="form-group col-md-6 show_hide_password">
                     <b-form-input class="form-control" id="password"
-                                  :placeholder= "$t('message.headers.password')" type="password" v-model="$v.formReg.password.$model"
+                                  :placeholder="$t('message.headers.password')" type="password"
+                                  v-model="$v.formReg.password.$model"
                                   :state="validateState('password')"></b-form-input>
                     <password v-model="formReg.password" :strength-meter-only="true"/>
                     <b-form-invalid-feedback v-if="!$v.formReg.password.required">
@@ -89,7 +92,7 @@
                   </div>
                   <div class="form-group col-md-6 show_hide_password">
                     <b-form-input class="form-control" id="confirm-password"
-                                  :placeholder= "$t('message.headers.confirm_password')" type="password"
+                                  :placeholder="$t('message.headers.confirm_password')" type="password"
                                   v-model="$v.formReg.confirmPassword.$model"
                                   :state="validateState('confirmPassword')"></b-form-input>
                     <b-form-invalid-feedback v-if="!$v.formReg.confirmPassword.sameAsPassword">
@@ -102,7 +105,9 @@
                          type="checkbox" value="accept" id="agree"
                          :class="{'is-invalid': termConditionError}">
                   <label class="form-check-label" for="agree">
-                    {{ $t("message.headers.agree_our") }} <a href="" style="color: #f05a28">{{ $t("message.headers.terms_condition") }}</a>.
+                    {{ $t("message.headers.agree_our") }} <a href="" style="color: #f05a28">{{
+                      $t("message.headers.terms_condition")
+                    }}</a>.
                   </label><br>
                   <b-form-invalid-feedback v-if="termConditionError">
                     {{ $t("message.headers.agree_terms_condition") }}
@@ -122,7 +127,6 @@
               <div class="form-row">
                 <div class="form-group col-md-9 justify-content-start align-items-center">
                   <a href="" class="facebook-btn">{{ $t("message.headers.sign_up_facebook") }}</a>
-                  <div class="g-signin2" :data-onsuccess="onSignIn"></div>
                 </div>
                 <div class="form-group col-md-3 justify-content-end">
                   <button :disabled="formReg.busy || !formReg.robot" type="submit" class="btn reg-btn">
@@ -136,7 +140,9 @@
             </div>
             <div class="form-row justify-content-center">
               <p><span style="color: #aaa">{{ $t("message.headers.already_account") }}</span> <a @click="openLoginModal"
-                                                                              style="cursor: pointer">{{ $t("message.headers.login_now") }}</a></p>
+                                                                                                 style="cursor: pointer">{{
+                  $t("message.headers.login_now")
+                }}</a></p>
             </div>
           </form>
         </div>
@@ -157,13 +163,17 @@
             <div class="modal-body">
               <fieldset>
                 <div class="form-group row">
-                  <label for="staticEmail" class="col-sm-4 text-sm-right col-form-label">{{ $t("message.headers.email") }} </label>
+                  <label for="staticEmail" class="col-sm-4 text-sm-right col-form-label">{{
+                      $t("message.headers.email")
+                    }} </label>
                   <div class="col-sm-8">
                     <input type="text" readonly class="form-control-plaintext" v-model="formVerify.emailOrMobile">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="verificationToken" class="col-sm-4 text-sm-right col-form-label">{{ $t("message.headers.verification_code") }} </label>
+                  <label for="verificationToken" class="col-sm-4 text-sm-right col-form-label">{{
+                      $t("message.headers.verification_code")
+                    }} </label>
                   <div class="col-sm-5">
                     <input id="verificationToken" type="number" class="form-control"
                            v-model="formVerify.verificationToken"
@@ -220,7 +230,7 @@
               </div>
               <div class="form-group mb-4">
                 <b-form-input class="form-control" id="login-email-phone"
-                              :placeholder= "$t('message.headers.email_or_phone_number')" type="text"
+                              :placeholder="$t('message.headers.email_or_phone_number')" type="text"
                               v-model="$v.form.emailOrMobile.$model"
                               :state="validateState2('emailOrMobile')"></b-form-input>
                 <b-form-invalid-feedback v-if="!$v.form.emailOrMobile.required">
@@ -232,7 +242,8 @@
               </div>
               <div class="form-group mb-3">
                 <b-form-input class="form-control" id="login-password"
-                              :placeholder= "$t('message.headers.password')" type="password" v-model="$v.form.password.$model"
+                              :placeholder="$t('message.headers.password')" type="password"
+                              v-model="$v.form.password.$model"
                               :state="validateState2('password')"></b-form-input>
                 <b-form-invalid-feedback v-if="!$v.form.password.required">
                   {{ $t("message.headers.password") }}
@@ -245,14 +256,18 @@
                 </b-form-invalid-feedback>
               </div>
               <div class="form-group">
-                <a href="javascript:void(0)" @click="openForgetModal" style="color: #f05a28;text-decoration: underline">{{ $t("message.headers.forget_password") }}</a>
+                <a href="javascript:void(0)" @click="openForgetModal" style="color: #f05a28;text-decoration: underline">{{
+                    $t("message.headers.forget_password")
+                  }}</a>
               </div>
             </div>
             <div class="modal-footer border-top-0">
               <div class="form-row">
                 <div class="form-group col-md-9 justify-content-start align-items-center">
-                  <a class="facebook-btn cursor-hand">{{ $t("message.headers.sign_up_facebook") }}</a>
-                  <a class="google-btn cursor-hand" @click.prevent="loginWithGoogle">{{ $t("message.headers.sign_up_google") }}</a>
+                  <a class="facebook-btn cursor-hand"
+                     @click.prevent="loginWithFacebook">{{ $t("message.headers.sign_up_facebook") }}</a>
+                  <a class="google-btn cursor-hand"
+                     @click.prevent="loginWithGoogle">{{ $t("message.headers.sign_up_google") }}</a>
                 </div>
                 <div class="form-group col-md-3 justify-content-end align-items-center">
                   <button type="submit" class="btn reg-btn">{{ $t("message.headers.log_in") }}</button>
@@ -260,8 +275,9 @@
               </div>
             </div>
             <div class="form-row justify-content-center">
-              <p><span style="color: #aaa">{{ $t("message.headers.have_not_account") }}</span> <a @click="openRegistrationModal"
-                                                                         style="cursor: pointer">{{ $t("message.headers.register_now") }}</a></p>
+              <p><span style="color: #aaa">{{ $t("message.headers.have_not_account") }}</span> <a
+                  @click="openRegistrationModal"
+                  style="cursor: pointer">{{ $t("message.headers.register_now") }}</a></p>
             </div>
           </form>
         </div>
@@ -269,10 +285,11 @@
     </div>
 
     <!--   Contact modal -->
-    <ContactModal />
+    <ContactModal/>
 
     <!-- Forget password Modal -->
-    <div class="modal fade" id="forget_password_modal" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="true">
+    <div class="modal fade" id="forget_password_modal" tabindex="-1" role="dialog" aria-labelledby="login"
+         aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -291,7 +308,7 @@
                 </div>
                 <div class="form-group mb-4">
                   <b-form-input class="form-control" id="email"
-                                :placeholder= "$t('message.headers.enter_your_email_address')" type="text"
+                                :placeholder="$t('message.headers.enter_your_email_address')" type="text"
                                 v-model="$v.formForget.email.$model"
                                 :state="validateState3('email')"></b-form-input>
                   <b-form-invalid-feedback v-if="!$v.formForget.email.required">
@@ -305,13 +322,18 @@
               <template v-else-if="forget_password_state==2">
                 <fieldset>
                   <div class="form-group row">
-                    <label for="v_email" class="col-sm-4 text-sm-right col-form-label">{{ $t("message.headers.email") }} </label>
+                    <label for="v_email" class="col-sm-4 text-sm-right col-form-label">{{
+                        $t("message.headers.email")
+                      }} </label>
                     <div class="col-sm-8">
-                      <input type="text" id="v_email" readonly class="form-control-plaintext" v-model="formForgetVerify.email">
+                      <input type="text" id="v_email" readonly class="form-control-plaintext"
+                             v-model="formForgetVerify.email">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="verification_code" class="col-sm-4 text-sm-right col-form-label">{{ $t("message.headers.verification_code") }} </label>
+                    <label for="verification_code" class="col-sm-4 text-sm-right col-form-label">{{
+                        $t("message.headers.verification_code")
+                      }} </label>
                     <div class="col-sm-5">
                       <input id="verification_code" type="number" class="form-control"
                              v-model="formForgetVerify.verificationToken"
@@ -335,7 +357,8 @@
                 <div class="form-row mb-2">
                   <div class="form-group col-md-6 show_hide_password">
                     <b-form-input class="form-control" id="password"
-                                  :placeholder= "$t('message.headers.enter_new_password')" type="password" v-model="$v.formNewPassword.password.$model"
+                                  :placeholder="$t('message.headers.enter_new_password')" type="password"
+                                  v-model="$v.formNewPassword.password.$model"
                                   :state="validateState5('password')"></b-form-input>
                     <password v-model="formNewPassword.password" :strength-meter-only="true"/>
                     <b-form-invalid-feedback v-if="!$v.formNewPassword.password.required">
@@ -350,7 +373,7 @@
                   </div>
                   <div class="form-group col-md-6 show_hide_password">
                     <b-form-input class="form-control" id="confirm-password"
-                                  :placeholder= "$t('message.headers.confirm_password')" type="password"
+                                  :placeholder="$t('message.headers.confirm_password')" type="password"
                                   v-model="$v.formNewPassword.confirmPassword.$model"
                                   :state="validateState5('confirmPassword')"></b-form-input>
                     <b-form-invalid-feedback v-if="!$v.formNewPassword.confirmPassword.sameAsPassword">
@@ -373,8 +396,9 @@
               </div>
             </div>
             <div class="form-row justify-content-center">
-              <p><span style="color: #aaa">{{ $t("message.headers.have_not_account") }}</span> <a @click="openRegistrationModal"
-                                                                                                  style="cursor: pointer">{{ $t("message.headers.register_now") }}</a></p>
+              <p><span style="color: #aaa">{{ $t("message.headers.have_not_account") }}</span> <a
+                  @click="openRegistrationModal"
+                  style="cursor: pointer">{{ $t("message.headers.register_now") }}</a></p>
             </div>
           </form>
         </div>
@@ -395,7 +419,7 @@
                 </li>
                 <li class="nav-item d-none d-sm-block" style="margin-right: 2px;margin-left: 10px">
                   <a class="nav-link px-1" style="color: #3b5998" href="javascript:void(0);">
-                    <i class="fab fa-facebook" ></i>
+                    <i class="fab fa-facebook"></i>
                   </a>
                 </li>
                 <li class="nav-item d-none d-sm-block">
@@ -421,21 +445,27 @@
               </ul>
               <ul class="nav justify-content-end">
                 <li class="nav-item active">
-                  <a style="padding-left: 0" class="nav-link" href="#">{{ $t("message.headers.help") }} <i class="fa fa-question" style="color: #444;"></i> </a>
+                  <router-link to="/help-center" style="padding-left: 0" class="nav-link">{{
+                      $t("message.headers.help")
+                    }} <i class="fa fa-question" style="color: #444;"></i></router-link>
                 </li>
                 <li class="nav-item dropdown">
-                  <a style="padding-left: 0" class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button"
+                  <a style="padding-left: 0" class="nav-link dropdown-toggle" href="javascript:void(0)"
+                     id="navbarDropdown" role="button"
                      data-toggle="dropdown"
                      aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-user" style="color: #444;"></i> {{ $t("message.headers.account") }}
                   </a>
                   <div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="navbarDropdown">
                     <div class="welcome-part overflow-hidden mb-3" v-if="!userAuth">
-                      <a class="dropdown-item d-block pb-3 font-weight-bold" href="#">{{ $t("message.headers.welcome_tizaara") }}</a>
+                      <a class="dropdown-item d-block pb-3 font-weight-bold"
+                         href="#">{{ $t("message.headers.welcome_tizaara") }}</a>
                       <a id="sign-up" class="btn active btn-outline-success btn-sm mr-1"
-                         style="background: #f05931;border-color: #f05931;" @click="openRegistrationModal">{{ $t("message.headers.join") }}</a>
+                         style="background: #f05931;border-color: #f05931;"
+                         @click="openRegistrationModal">{{ $t("message.headers.join") }}</a>
                       <a id="sign-in" class="btn active btn-outline-success btn-sm"
-                         style="background: #f05931;border-color: #f05931;" @click="openLoginModal">{{ $t("message.headers.sign_in") }}</a>
+                         style="background: #f05931;border-color: #f05931;"
+                         @click="openLoginModal">{{ $t("message.headers.sign_in") }}</a>
                     </div>
                     <div class="media" v-if="userAuth">
                       <img width="64" height="64" :src="user.photo_type == 0?showImage(user.photo):user.photo"
@@ -452,9 +482,15 @@
                     <router-link to="/dashboard" class="link-2">{{ $t("message.headers.dashboard") }}</router-link>
                     <a href="" class="link-2">{{ $t("message.headers.message_RFQ") }}</a>
                     <a href="" class="link-2">{{ $t("message.headers.my_order") }}</a>
-                    <router-link to="/my-favorite" class="link-2">{{ $t("message.headers.my_favourites") }}</router-link>
+                    <router-link to="/my-favorite" class="link-2">{{
+                        $t("message.headers.my_favourites")
+                      }}
+                    </router-link>
                     <a href="" class="link-2">{{ $t("message.headers.my_account") }}</a>
-                    <router-link to="/membership-plan" class="link-2">{{ $t("message.headers.supplier_membership_plan") }}</router-link>
+                    <router-link to="/membership-plan" class="link-2">{{
+                        $t("message.headers.supplier_membership_plan")
+                      }}
+                    </router-link>
                     <div class="dropdown-divider"></div>
                     <a href="" class="link-2">{{ $t("message.headers.submit_RFQ") }}</a>
                     <a href="" class="link-2"><small>{{ $t("message.headers.multipl_quotes") }}</small></a>
@@ -472,9 +508,10 @@
           <div class="row">
             <div class="col-6 col-md-3 col-lg-3 col-xl-3 col-sm-3">
               <router-link to="/">
-                <b-img-lazy :src="showImage($store.getters.generalList.logo)" width="200px" height="70px" class="logo"
-                            alt="Logo">
-                </b-img-lazy>
+                <b-img :src="showImage($store.getters.generalList.logo)"
+                       v-lazy="showImage($store.getters.generalList.logo)" width="200px" height="70px" class="logo"
+                       alt="Logo">
+                </b-img>
               </router-link>
             </div>
             <div class="col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7">
@@ -484,12 +521,16 @@
               <div class="add-to-card-wrapper">
                 <router-link title="Messages" :to="{name:'Message'}">
                   <i class="far fa-comment-dots"></i> <span
-                    class="badge badge-success" style="padding: 3px 4px;margin-left: -3px;margin-top: -4px">{{this.unseen_message_count}}</span>
+                    class="badge badge-success"
+                    style="padding: 3px 4px;margin-left: -3px;margin-top: -4px">{{ this.unseen_message_count }}</span>
                 </router-link>
-                <a href="javascript:void(0)" title="Orders"><i class="fas fa-gift" style="padding: 3px"></i> <sup style="margin-left: -6px" class="badge badge-success">0</sup></a>
+                <a href="javascript:void(0)" title="Orders"><i class="fas fa-gift" style="padding: 3px"></i> <sup
+                    style="margin-left: -6px" class="badge badge-success">0</sup></a>
                 <router-link :to="{name:'cart.view'}" title="Card">
-                  <i class="fas fa-shopping-cart" style="padding: 3px"></i> <sup style="margin-left: -5 px"
-                    class="badge badge-success">{{ $store.getters.carts.length }}</sup>
+                  <i class="fas fa-shopping-cart" style="padding: 3px"></i> <sup style="margin-left: -5px"
+                                                                                 class="badge badge-success">{{
+                    $store.getters.carts.length
+                  }}</sup>
                 </router-link>
               </div>
             </div>
@@ -552,23 +593,20 @@ export default {
       timer: 0,
       timerBusy: false,
       userAuth: false,
-      googleSignInParams: {
-        client_id: '541835342636-cpkgm0vn65eev3p1b3o3hngibfsd09ul.apps.googleusercontent.com'
-      },
       formForget: new Form({
         email: '',
       }),
-      formForgetVerify:new Form({
-        email:'',
-        verificationToken:'',
+      formForgetVerify: new Form({
+        email: '',
+        verificationToken: '',
       }),
-      formNewPassword:new Form({
-        email:'',
-        password:'',
-        confirmPassword:'',
+      formNewPassword: new Form({
+        email: '',
+        password: '',
+        confirmPassword: '',
       }),
-      forget_password_state:1,
-      forget_busy:false,
+      forget_password_state: 1,
+      forget_busy: false,
     };
   },
   validations: {
@@ -619,18 +657,18 @@ export default {
         maxLength: maxLength(255)
       },
     },
-    formForgetVerify:{
+    formForgetVerify: {
       email: {
         required,
         email,
         maxLength: maxLength(255)
       },
-      verificationToken:{
+      verificationToken: {
         required,
       }
     },
-    formNewPassword:{
-      password:{
+    formNewPassword: {
+      password: {
         required,
         minLength: minLength(8),
         maxLength: maxLength(16)
@@ -711,7 +749,7 @@ export default {
             let data = error.response;
             if (data.status === 404) {
               $('#verify').modal('hide');
-              swal.fire( this.$t("message.common.error"), this.$t("message.common.something_wrong"), 'warning')
+              swal.fire(this.$t("message.common.error"), this.$t("message.common.something_wrong"), 'warning')
             }
           })
     },
@@ -749,41 +787,41 @@ export default {
     },
 
     /*method for submit forget email*/
-    submitEmailForForget(){
+    submitEmailForForget() {
       this.$v.formForget.$touch();
       if (this.$v.formForget.$anyError) {
         return;
       }
-      this.forget_busy=true;
+      this.forget_busy = true;
       this.formForget.post('sent/forget/password/request')
           .then((response) => {
-            if (response.data.status==='success'){
-              this.forget_password_state=2;
-              this.formForgetVerify.email=this.formForget.email;
+            if (response.data.status === 'success') {
+              this.forget_password_state = 2;
+              this.formForgetVerify.email = this.formForget.email;
               this.formForget.reset();
               this.verificationTimer();
-            }else{
+            } else {
               this.$toaster.error(response.data.message);
             }
-            this.forget_busy=false;
+            this.forget_busy = false;
           })
           .catch((error) => {
             this.$toaster.error(error.response.data);
-            this.forget_busy=false;
+            this.forget_busy = false;
           })
     },
     /*
     * method for verification token resent
     * */
-    resentVerifyForForget(){
-      let data =new FormData();
-      data.append('email',this.formForgetVerify.email);
-      ApiService.post('sent/forget/password/request',data)
+    resentVerifyForForget() {
+      let data = new FormData();
+      data.append('email', this.formForgetVerify.email);
+      ApiService.post('sent/forget/password/request', data)
           .then((response) => {
-            if (response.data.status==='success'){
+            if (response.data.status === 'success') {
               this.$toaster.success(response.data.message);
               this.verificationTimer();
-            }else{
+            } else {
               this.$toaster.error(response.data.message);
             }
           })
@@ -792,58 +830,58 @@ export default {
           })
     },
     /*method for submit with verification code*/
-    submitVerifyForForget(){
+    submitVerifyForForget() {
       this.$v.formForgetVerify.$touch();
       if (this.$v.formForgetVerify.$anyError) {
         return;
       }
-      this.forget_busy=true;
+      this.forget_busy = true;
       this.formForgetVerify.post('verify/request/verification/token')
           .then((response) => {
-            if (response.data.status==='success'){
-              this.forget_password_state=3;
-              this.formNewPassword.email=this.formForgetVerify.email;
+            if (response.data.status === 'success') {
+              this.forget_password_state = 3;
+              this.formNewPassword.email = this.formForgetVerify.email;
               this.formForgetVerify.reset();
-            }else{
+            } else {
               this.$toaster.error(response.data.message);
             }
-            this.forget_busy=false;
+            this.forget_busy = false;
           })
           .catch((error) => {
             this.$toaster.error(error.response.data);
-            this.forget_busy=false;
+            this.forget_busy = false;
           })
     },
     /*method for submit with new password*/
-    submitNewPassForForget(){
+    submitNewPassForForget() {
       this.$v.formNewPassword.$touch();
       if (this.$v.formNewPassword.$anyError) {
         return;
       }
-      this.forget_busy=true;
+      this.forget_busy = true;
       this.formNewPassword.post('request/set/new/password')
           .then((response) => {
-            if (response.data.status==='success'){
-              this.forget_password_state=1;
+            if (response.data.status === 'success') {
+              this.forget_password_state = 1;
               this.formNewPassword.reset();
               this.$toaster.success(response.data.message);
               $('#reg').modal('hide');
               $(`#forget_password_modal`).modal('hide');
               $(`#login`).modal('show');
-            }else{
+            } else {
               this.$toaster.error(response.data.message);
             }
-            this.forget_busy=false;
+            this.forget_busy = false;
           })
           .catch((error) => {
             this.$toaster.error(error.response.data);
-            this.forget_busy=false;
+            this.forget_busy = false;
           })
     },
-    findSubmitMethod(){
-      if(this.forget_password_state==1) this.submitEmailForForget();
-      else if(this.forget_password_state==2) this.submitVerifyForForget();
-      else if(this.forget_password_state==3) this.submitNewPassForForget();
+    findSubmitMethod() {
+      if (this.forget_password_state == 1) this.submitEmailForForget();
+      else if (this.forget_password_state == 2) this.submitVerifyForForget();
+      else if (this.forget_password_state == 3) this.submitNewPassForForget();
     },
     openLoginModal: function () {
       this.resetForm();
@@ -929,7 +967,7 @@ export default {
                     $('#verify').modal('hide');
                     swal.fire("Failed!", data.response.data.error, 'warning')
                   } else if (data.status === 404) {
-                    swal.fire( this.$t("message.common.something_wrongs"), data.response.data.error, 'warning')
+                    swal.fire(this.$t("message.common.something_wrongs"), data.response.data.error, 'warning')
                   } else {
                     swal.fire(this.$t("message.common.error"), this.$t("message.common.something_wrong"), 'warning')
                   }
@@ -940,19 +978,15 @@ export default {
           })
 
     },
-    onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    loginWithFacebook() {
+      const { authResponse } = new Promise(FB.login);
+      console.log(authResponse)
     }
-
   },
-  components: {Password, 'vue-recaptcha': VueRecaptcha, Search,ContactModal},
+  components: {Password, 'vue-recaptcha': VueRecaptcha, Search, ContactModal},
   computed: {
     ...mapGetters([
-      "isAuthenticated","unseen_message_count",
+      "isAuthenticated", "unseen_message_count",
     ]),
     ...mapState({
       errors: state => state.auth.errors
@@ -970,7 +1004,7 @@ export default {
 </script>
 
 <style scoped>
-.top-header{
+.top-header {
   background-color: whitesmoke;
   box-shadow: inset 0 -1px 0 #33333352;
 }
@@ -979,11 +1013,28 @@ ul {
   list-style-type: none;
 }
 
-.navbar {padding: 1px;}
-.navbar, ul {display: flex; flex-direction:row;}
-ul li {padding: 0 1px;}
-@media(max-width: 800px) {
-  ul li {padding: 0 0;}
+.navbar {
+  padding: 1px;
 }
-.wrapper {display:flex; justify-content: space-between; width:100%; }
+
+.navbar, ul {
+  display: flex;
+  flex-direction: row;
+}
+
+ul li {
+  padding: 0 1px;
+}
+
+@media (max-width: 800px) {
+  ul li {
+    padding: 0 0;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 </style>

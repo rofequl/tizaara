@@ -1,4 +1,5 @@
 module.exports = {
+  //publicPath: 'https://cdn.jsdelivr.net/gh/rofequl/cdn/tizaara/admin/',
   lintOnSave: false,
   runtimeCompiler: true,
   configureWebpack: {

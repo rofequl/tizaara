@@ -7,11 +7,14 @@ import ApiService from "./core/services/api.service";
 import {VERIFY_AUTH} from "./core/services/store/auth.module";
 import {GENERAL_LIST} from "@/core/services/store/general.module";
 import message from "@/common/message.json";
+import {initFacebookSdk} from "@/core/config/facebook_oAuth";
 
 // Vue 3rd party plugins
 import "./core/plugins/bootstrap";
 
 ApiService.init();
+
+initFacebookSdk();
 
 /*============================================
 // npm install vue-i18n
@@ -66,5 +69,5 @@ new Vue({
     render: h => h(App),
     created() {
         store.dispatch(GENERAL_LIST)
-    }
+    },
 }).$mount('#app')

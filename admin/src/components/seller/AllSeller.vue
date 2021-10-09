@@ -39,6 +39,7 @@
             <b-dropdown-item @click="changeStatus(props.row.id)">
               {{props.row.status ==2?'Ban this seller':'Unban this seller'}}
             </b-dropdown-item>
+            <b-dropdown-item @click="deleteSeller(props.row.id)">Delete</b-dropdown-item>
           </b-dropdown>
         </div>
       </v-client-table>
@@ -63,6 +64,9 @@ export default {
   components:{UserAddModal, UserEditModal},
   data() {
     return {
+      form: new Form({
+        id: '',
+      }),
       validation: true,
       editMode: false,
       columns: ['serial', 'image', 'name', 'email', 'approval', 'options'],
@@ -117,7 +121,37 @@ export default {
               });
         }
       })
-    }
+    },
+    deleteSeller(id) {
+      swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.form.delete('customer/' + id)
+              .then((data) => {
+                if (data.data.result === 'Error') {
+                  swal.fire(this.$t('message.common.error'), data.data.message, 'warning')
+                } else {
+                  swal.fire(
+                      this.$t('message.common.deleted'),
+                      'Customer has been deleted.',
+                      this.$t('message.common.succes')
+                  )
+                  this.$store.commit('SELLER_REMOVE', id);
+                }
+              })
+              .catch(() => {
+                swal.fire(this.$t('message.common.error'), this.$t('message.common.some_wrong'), 'warning')
+              });
+        }
+      })
+    },
   },
   created() {
     if (!this.sellerList.length > 0) this.$store.dispatch('SELLER_LIST');

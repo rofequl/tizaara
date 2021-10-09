@@ -38,11 +38,14 @@ const toast = swal.mixin({
 window.toast = toast;
 window.swal = swal;
 
+//import GoogleAuth
 import GoogleAuth from '@/core/config/google_oAuth'
-
-import GSignInButton from 'vue-google-signin-button'
-
-Vue.use(GSignInButton)
+const gauthOption = {
+    clientId: google_client_id,
+    scope: 'profile email',
+    prompt: 'select_account'
+}
+Vue.use(GoogleAuth, gauthOption)
 
 import VueLazyload from 'vue-lazyload'
 const loadimage = require('@/assets/image/spinner.gif')
@@ -116,6 +119,7 @@ Vue.use(VueSuggestion)
 // npm install vue-infinite-scroll --save
 ============================================= */
 import infiniteScroll from 'vue-infinite-scroll'
+import {google_client_id} from "@/core/config/app";
 Vue.use(infiniteScroll)
 
 

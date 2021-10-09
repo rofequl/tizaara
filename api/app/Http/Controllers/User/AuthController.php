@@ -281,6 +281,12 @@ class AuthController extends Controller
                 $user->photo_type = 1;
                 $user->photo = $payload['picture'];
                 $user->save();
+
+                if ($user) {
+                    $setting = GuestUserSetting::all()->first();
+                    $user->guestUserSetting()->associate($setting);
+                    $user->save();
+                }
             }
 
             if (!$token = Auth::guard('users')->fromUser($user)) {

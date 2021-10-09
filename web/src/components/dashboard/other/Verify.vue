@@ -34,17 +34,17 @@
             <div class="row form-group mb-4">
               <div class="col col-md-3"><label class=" form-control-label">{{ $t("message.verify.missing_information.i_am_a") }}</label></div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" :disabled="!account_type" id="supplier"
+                <input class="form-check-input" type="radio" id="supplier"
                        v-model="form.account_type" value="1">
                 <label class="form-check-label" for="supplier">{{ $t("message.verify.missing_information.supplier") }}</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" :disabled="!account_type" id="buyer"
+                <input class="form-check-input" type="radio" id="buyer"
                        v-model="form.account_type" value="2">
                 <label class="form-check-label" for="buyer">{{ $t("message.verify.missing_information.buyer") }}</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" :disabled="!account_type" id="both"
+                <input class="form-check-input" type="radio" id="both"
                        v-model="form.account_type" value="0">
                 <label class="form-check-label" for="both">{{ $t("message.verify.missing_information.both") }}</label>
               </div>
@@ -88,7 +88,7 @@
               </div>
               <div class="col-12 col-md-8">
                 <b-form-input class="form-control" id="phone" @keyup="onSearch"
-                              :placeholder= "$t('message.message.phone_number')" type="number"
+                              :placeholder= "$t('message.verify.missing_information.enter_your_phone')" type="number"
                               v-model="$v.form.mobile.$model" :disabled="!mobile"
                               :class="{ 'is-invalid': form.errors.has('mobile') }"
                               :state="validateState('mobile')"></b-form-input>

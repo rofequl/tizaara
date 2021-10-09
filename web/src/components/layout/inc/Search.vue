@@ -217,6 +217,8 @@
 
   .vue-simple-suggest.designed .input-wrapper input {
     border: 1px solid #aaaaaa;
+    border-radius: 0;
+    height: calc(1.5em + .75rem + 5px);
   }
 
   .ui-searchbar-dynamic-query-content-wrap {

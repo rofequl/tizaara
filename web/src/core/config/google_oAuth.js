@@ -1,5 +1,5 @@
 var googleAuth = (function () {
-    function installClient() {
+    function installClient () {
         var apiUrl = 'https://apis.google.com/js/api.js'
         return new Promise((resolve) => {
             var script = document.createElement('script')
@@ -15,7 +15,7 @@ var googleAuth = (function () {
         })
     }
 
-    function initClient(config) {
+    function initClient (config) {
         return new Promise((resolve) => {
             window.gapi.load('auth2', () => {
                 window.gapi.auth2.init(config)
@@ -26,7 +26,7 @@ var googleAuth = (function () {
         })
     }
 
-    function Auth() {
+    function Auth () {
         if (!(this instanceof Auth))
             return new Auth()
         this.GoogleAuth = null /* window.gapi.auth2.getAuthInstance() */
@@ -79,7 +79,7 @@ var googleAuth = (function () {
                     reject(false)
                     return
                 }
-                this.GoogleAuth.grantOfflineAccess({prompt: this.prompt})
+                this.GoogleAuth.grantOfflineAccess({ prompt: this.prompt })
                     .then(function (resp) {
                         if (typeof successCallback === 'function') successCallback(resp.code)
                         resolve(resp.code)
@@ -118,10 +118,7 @@ var googleAuth = (function () {
 function installGoogleAuthPlugin(Vue, options) {
     //set config
     let GoogleAuthConfig = null
-    let GoogleAuthDefaultConfig = {
-        scope: 'profile email',
-        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
-    }
+    let GoogleAuthDefaultConfig = { scope: 'profile email', discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'] }
     let prompt = 'select_account'
     if (typeof options === 'object') {
         GoogleAuthConfig = Object.assign(GoogleAuthDefaultConfig, options)
