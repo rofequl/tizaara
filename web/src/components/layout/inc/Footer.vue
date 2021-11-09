@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="footer-top bg-light pb-5 border-bottom mt-3">
+    <div class="footer-top bg-light pb-3 border-bottom mt-3">
       <div class="px-0 px-md-5 py-2" style="background-color: #e0eae8;border: 1px solid #9ebab6">
         <div class="container">
           <div class="row">
@@ -9,9 +9,11 @@
             </div>
             <div class="col-12 col-md-6">
               <p class="mb-0 text-center">{{ $t("message.footer.follow_us") }}
-                <a style="font-size: 18px"><i class="fab fa-facebook text-success"></i></a>
-                <a style="font-size: 18px"><i class="fab fa-twitter-square mx-2 text-success"></i></a>
-                <a style="font-size: 18px"><i class="fab fa-linkedin text-success"></i></a>
+                <a style="font-size: 18px" v-if="generalList.facebook" target="_blank" :href="generalList.facebook"><i class="fab fa-facebook text-success"></i></a>
+                <a style="font-size: 18px" v-if="generalList.twitter" target="_blank" :href="generalList.twitter"><i class="fab fa-twitter-square mx-2 text-success"></i></a>
+                <a style="font-size: 18px" v-if="generalList.youtube" target="_blank" :href="generalList.youtube"><i class="fab fa-youtube text-success"></i></a>
+                <a style="font-size: 18px" v-if="generalList.google_plus" target="_blank" :href="generalList.google_plus"><i class="fab fa-google-plus mx-2 text-success"></i></a>
+                <a style="font-size: 18px" v-if="generalList.instagram" target="_blank" :href="generalList.instagram"><i class="fab fa-instagram text-success"></i></a>
               </p>
             </div>
           </div>
@@ -25,8 +27,8 @@
                 <div class="quick-link">
                   <router-link to="/about-us" class="text-dark">{{ $t("message.footer.about_us") }}</router-link>
                   <router-link to="/join-sales" class="text-dark">{{ $t("message.footer.join_sales") }}</router-link>
-                  <a href="" class="text-dark">{{ $t("message.footer.success_stories") }}</a>
-                  <a href="" class="text-dark">{{ $t("message.footer.press_sections") }}</a>
+                  <router-link to="/terms-conditions" class="text-dark">{{ $t("message.footer.terms_of_use") }}</router-link>
+                  <router-link to="/privacy-policy" class="text-dark">{{ $t("message.footer.privacy_policy") }}</router-link>
                   <a href="" class="text-dark">{{ $t("message.footer.advertise_with_us") }}</a>
                 </div><!-- .footer-title end -->
               </div><!-- .col-12 end -->
@@ -66,30 +68,29 @@
               </div><!-- .col-12 end -->
             </div><!-- .row end -->
           </div>
+          <div class="mt-3 col-12">
+            <img src="@/assets/image/ssl.png" class="img-fluid"/>
+          </div>
         </div><!-- .row end -->
       </div><!-- .container end -->
     </div><!-- .footer-top end -->
 
     <div class="footer-bottom bg-light overflow-hidden">
       <div class="container">
-        <p class="float-left mt-2">&copy; {{ $t("message.footer.2020") }}
-          <router-link to="/" class="text-success">{{ $t("message.footer.tizaara") }}</router-link>
-          {{ $t("message.footer.all_rights_reserved") }}
-        </p>
-        <p class="float-right mt-2">
-          <router-link to="/terms-conditions" class="text-success">{{ $t("message.footer.terms_of_use") }}</router-link>
-          <router-link to="/privacy-policy" class="text-success">{{ $t("message.footer.privacy_policy") }}</router-link>
-          <router-link to="/" class="text-success">{{ $t("message.footer.link_to_us") }}</router-link>
-
-        </p>
+        <p class="float-left mt-2">{{generalList.footer_text}}</p>
       </div>
     </div><!-- .footer-bottom end -->
   </div>
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
-  name: "Footer"
+  name: "Footer",
+  computed: {
+    ...mapGetters(["generalList"]),
+  }
 }
 </script>
 

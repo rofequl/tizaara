@@ -215,9 +215,7 @@
                 </a>
                 <a href="javascript:void(0)" class="btn btn-block btn-outline-danger">
                   <i class="fas fa-phone-alt"></i> {{ $t("message.product_new.call") }}
-                  {{
-                    product.user ? product.user.company_basic_info ? product.user.company_basic_info.phone : '' : ''
-                  }}
+                  {{product.user ? product.user.company_basic_info ? product.user.company_basic_info.phone : '' : '' }}
                 </a>
               </p>
               <div class="col-md-12" v-if="flash_deal">
@@ -227,18 +225,14 @@
               </div>
               <hr>
               <div class="col-md-12" style="margin-top: 5px;">
-                <div style="background-color: #f5f6fc">
-                  <img style="margin-left: 40%" :src="showImage(company_details.company_logo)" alt="" width="50px"
+                <div class="p-2 mb-3" style="background-color: #f5f6fc">
+                  <img style="margin-left: 40%" v-lazy="showImage(company_details.company_logo)" class="rounded" alt="" width="50px"
                        height="50px"/>
-                  <div style="font-size: 16px">
-                    <span style="margin-left: 30%">{{ company_basic.name }}</span>
-                    <p>{{ company_basic.ownership_type }}</p>
-                    <p style="text-align: center;color: red;">{{ company_basic.office_space }}</p>
+                  <div class="text-center">
+                    <h6 class="mt-2">{{ company_basic.name }}</h6>
+                    <p class="text-muted mb-2">{{ company_basic.ownership_type }}</p>
+                    <a href="javascript:void(0)" class="border rounded p-1 mb-2 text-white bg-secondary" @click="companyProfilePage()">{{ $t("message.cart_sidebar.visit_store") }}</a>
                   </div>
-                  <a href="javascript:void(0)" @click="companyProfilePage()"
-                     style="color: blue; margin-right: 5%">{{ $t("message.cart_sidebar.visit_store") }}</a>
-                  <!--                    <a href="javascript:void(0)" style="color: blue">{{$t("message.cart_sidebar.see_other_item")}}</a>
-                                    -->
                 </div>
               </div>
             </article>

@@ -97,6 +97,13 @@ export default [
                 icon: 'cil-map'
             },
             {
+                _name: 'CSidebarNavItem',
+                name: 'Advertisement',
+                route: 'package-payment',
+                to: '/advertisement',
+                icon: 'cil-map'
+            },
+            {
                 _name: 'CSidebarNavDropdown',
                 name: 'Marketing',
                 route: '/marketing',

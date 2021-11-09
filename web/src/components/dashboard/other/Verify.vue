@@ -63,11 +63,11 @@
               </div>
             </div>
             <div class="row form-group mb-4">
-              <div class="col col-md-3"><label class=" form-control-label">{{ $t("message.verify.missing_information.email_address") }}</label>
+              <div class="col col-md-3"><label class=" form-control-label">Email Address</label>
               </div>
               <div class="col-12 col-md-8">
                 <b-form-input class="form-control" id="email"
-                              :placeholder= "$t('message.message.email_address')" type="email"
+                              placeholder= "Enter your email address" type="email"
                               v-model="$v.form.email.$model" :disabled="!email"
                               :class="{ 'is-invalid': form.errors.has('email') }"
                               :state="validateState('email')"></b-form-input>

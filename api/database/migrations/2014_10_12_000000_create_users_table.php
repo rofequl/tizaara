@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('telephone')->nullable();
             $table->string('password')->nullable();
             $table->string('verificationToken')->nullable();
+            $table->bigInteger('facebook_id')->nullable();
             $table->string('is_verified')->default(0)->comment('1=Verify');
             $table->string('status')->default(0);
             $table->string('registration_type')->default(0)->comment('1=Data Submit,');

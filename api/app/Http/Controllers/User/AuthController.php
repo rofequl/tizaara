@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use GuzzleHttp\Client;
 
 class AuthController extends Controller
 {
@@ -22,7 +23,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:users', ['except' => ['login', 'loginByGoogle', 'register', 'verify', 'verifyTokenSend', 'supplierSearch']]);
+        $this->middleware('auth:users', ['except' => ['login', 'loginByGoogle', 'loginByFacebook', 'register', 'verify', 'verifyTokenSend', 'supplierSearch']]);
     }
 
     public function register(Request $request)
@@ -297,6 +298,46 @@ class AuthController extends Controller
             return response()->json(['error' => 'Google token is already expired.'], 401);
         }
 
+    }
+
+    public function loginByFacebook(Request $request)
+    {
+        $input = $request->input('token');
+        $url = 'https://graph.facebook.com/v8.0/me?access_token=' . $input;
+        $client = new Client();
+        $res = $client->get($url);
+
+        if ($res->getStatusCode() === 200) {
+            $facebook = json_decode($res->getBody(), true);
+            $id = $facebook['id'];
+            $first_name = strtok($facebook['name'], " ");
+            $second_name = str_replace($first_name, '', $facebook['name']);
+            $user = User::where('facebook_id', $id)->first();
+            $username = $this->username($facebook['name']);
+            if (!$user) {
+                $user = new User();
+                $user->first_name = $first_name;
+                $user->last_name = $second_name;
+                $user->username = $username;
+                $user->facebook_id = $id;
+                $user->password = Hash::make($id);
+                $user->registration_type = 2;
+                $user->save();
+
+                if ($user) {
+                    $setting = GuestUserSetting::all()->first();
+                    $user->guestUserSetting()->associate($setting);
+                    $user->save();
+                }
+            }
+
+            if (!$token = Auth::guard('users')->fromUser($user)) {
+                return response()->json(['error' => 'The login detail is incorrect', 'message' => 'Unauthorized'], 404);
+            }
+            return $this->respondWithToken($token);
+        } else {
+            return response()->json(['error' => 'Facebook token is already expired.'], 401);
+        }
     }
 
     public function profile()

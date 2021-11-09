@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class MembershipPlan extends Model
 {
     protected $fillable = [
-        'name', 'duration', 'buffer_time', 'no_of_allowed_products', 'no_of_allowed_keywords', 'no_of_allowed_rfq',
+        'name', 'benefit', 'amount', 'duration', 'buffer_time', 'no_of_allowed_products', 'no_of_allowed_keywords', 'no_of_allowed_rfq',
         'no_of_top_adds', 'created_by'
     ];
-    protected $hidden=['created_at','updated_at'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function createdBy()
     {

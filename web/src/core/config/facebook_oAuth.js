@@ -5,11 +5,9 @@ export const initFacebookSdk = () => {
         window.fbAsyncInit = function () {
             FB.init({
                 appId: facebook_app_id,
+                cookie: true,
                 xfbml: true,
                 version: 'v12.0'
-            });
-            FB.getLoginStatus(function(response) {
-                console.log(response);
             });
         };
         (function (d, s, id) {

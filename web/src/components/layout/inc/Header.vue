@@ -412,34 +412,39 @@
             <div class="wrapper">
               <ul class="nav justify-content-start">
                 <li class="nav-item">
-                  <a class="nav-link" href="javascript:void(0);">
+                  <a class="nav-link" :href="'mailto:'+generalList.email">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <span> support@tizaara.com</span>
+                    <span> {{ generalList.email }}</span>
                   </a>
                 </li>
                 <li class="nav-item d-none d-sm-block" style="margin-right: 2px;margin-left: 10px">
-                  <a class="nav-link px-1" style="color: #3b5998" href="javascript:void(0);">
+                  <a :href="generalList.facebook" v-if="generalList.facebook" target="_blank" class="nav-link px-1"
+                     style="color: #3b5998">
                     <i class="fab fa-facebook"></i>
                   </a>
                 </li>
                 <li class="nav-item d-none d-sm-block">
-                  <a class="nav-link px-1" style="color: #00ACEE" href="javascript:void(0);">
+                  <a :href="generalList.twitter" v-if="generalList.twitter" target="_blank" class="nav-link px-1"
+                     style="color: #00ACEE">
                     <i class="fab fa-twitter-square"></i>
                   </a>
                 </li>
                 <li class="nav-item d-none d-sm-block">
-                  <a class="nav-link px-1" style="color: #8a3ab9" href="javascript:void(0);">
+                  <a :href="generalList.instagram" v-if="generalList.instagram" target="_blank" class="nav-link px-1"
+                     style="color: #8a3ab9">
                     <i class="fab fa-instagram"></i>
                   </a>
                 </li>
                 <li class="nav-item d-none d-sm-block">
-                  <a class="nav-link px-1" style="color: #00aff0" href="javascript:void(0);">
-                    <i class="fab fa-skype"></i>
+                  <a :href="generalList.youtube" v-if="generalList.youtube" target="_blank" class="nav-link px-1"
+                     style="color: #00aff0">
+                    <i class="fab fa-youtube"></i>
                   </a>
                 </li>
                 <li class="nav-item d-none d-sm-block">
-                  <a class="nav-link px-1" style="color: #0077b5" href="javascript:void(0);">
-                    <i class="fab fa-linkedin"></i>
+                  <a :href="generalList.google_plus" v-if="generalList.google_plus" target="_blank"
+                     class="nav-link px-1" style="color: #0077b5">
+                    <i class="fab fa-google-plus"></i>
                   </a>
                 </li>
               </ul>
@@ -479,20 +484,19 @@
                       </div>
                     </div>
                     <hr>
-                    <router-link to="/dashboard" class="link-2">{{ $t("message.headers.dashboard") }}</router-link>
-                    <a href="" class="link-2">{{ $t("message.headers.message_RFQ") }}</a>
-                    <a href="" class="link-2">{{ $t("message.headers.my_order") }}</a>
+                    <router-link v-if="userAuth" to="/dashboard" class="link-2">{{ $t("message.headers.dashboard") }}</router-link>
+                    <router-link v-if="userAuth" to="/dashboard/message" class="link-2">{{ $t("message.headers.message_RFQ") }}</router-link>
+                    <router-link v-if="userAuth" to="/dashboard/supplier/order" class="link-2">{{ $t("message.headers.my_order") }}</router-link>
                     <router-link to="/my-favorite" class="link-2">{{
                         $t("message.headers.my_favourites")
                       }}
                     </router-link>
-                    <a href="" class="link-2">{{ $t("message.headers.my_account") }}</a>
+                    <router-link v-if="userAuth" to="/dashboard/profile" class="link-2">{{ $t("message.headers.my_account") }}</router-link>
+                    <div class="dropdown-divider"></div>
                     <router-link to="/membership-plan" class="link-2">{{
                         $t("message.headers.supplier_membership_plan")
                       }}
                     </router-link>
-                    <div class="dropdown-divider"></div>
-                    <a href="" class="link-2">{{ $t("message.headers.submit_RFQ") }}</a>
                     <a href="" class="link-2"><small>{{ $t("message.headers.multipl_quotes") }}</small></a>
                   </div>
                 </li>
@@ -681,6 +685,9 @@ export default {
   created() {
     window.addEventListener('scroll', this.handleScroll);
     this.loadIp();
+    Fire.$on('registrationModal', () => {
+      this.openRegistrationModal();
+    });
 
     /*unseen message counter*/
     if (this.isAuthenticated) this.$store.dispatch(COUNT_UNSEEN_MESSAGE);
@@ -978,15 +985,40 @@ export default {
           })
 
     },
-    loginWithFacebook() {
-      const { authResponse } = new Promise(FB.login);
-      console.log(authResponse)
+    async loginWithFacebook(){
+      $('#reg').modal('hide');
+      $('#login').modal('hide');
+      const { authResponse } = await new Promise(FB.login);
+      if (!authResponse) return;
+      let userInfo = {
+        loginType: 'google',
+        token: authResponse.accessToken
+      }
+      await ApiService.post(`user/login-facebook`, userInfo)
+          .then(({data}) => {
+            this.$store.dispatch(REGISTER, data)
+                .then(() => {
+                  this.$store.dispatch(VERIFY_AUTH);
+                })
+                .catch((data) => console.log(data));
+          })
+          .catch(error => {
+            let data = error.response;
+            if (data.status === 404) {
+              $('#verify').modal('hide');
+              swal.fire("Failed!", data.response.data.error, 'warning')
+            } else if (data.status === 404) {
+              swal.fire(this.$t("message.common.something_wrongs"), data.response.data.error, 'warning')
+            } else {
+              swal.fire(this.$t("message.common.error"), this.$t("message.common.something_wrong"), 'warning')
+            }
+          })
     }
   },
   components: {Password, 'vue-recaptcha': VueRecaptcha, Search, ContactModal},
   computed: {
     ...mapGetters([
-      "isAuthenticated", "unseen_message_count",
+      "isAuthenticated", "unseen_message_count", "generalList"
     ]),
     ...mapState({
       errors: state => state.auth.errors

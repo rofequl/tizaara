@@ -41,6 +41,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'admin', 'namespace' => 'Admin'
 Route::group(['middleware' => 'api', 'prefix' => 'user', 'namespace' => 'User'], function ($router) {
     Route::post('login', 'AuthController@login');
     Route::post('login-google', 'AuthController@loginByGoogle');
+    Route::post('login-facebook', 'AuthController@loginByFacebook');
     Route::post('register', 'AuthController@register');
     Route::post('logout', 'AuthController@logout');
     Route::post('verify', 'AuthController@verify');
@@ -67,10 +68,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'user', 'namespace' => 'User'],
     Route::post('register-membership-plan/{id}', 'MembershipPlanController@register');
     Route::get('get/all/membership/plan', 'MembershipPlanController@getAll');
 
-    Route::post('verification/request/store','UserController@verifyRequestStore');
+    Route::post('verification/request/store', 'UserController@verifyRequestStore');
 
-    Route::get('all/verify/requests','UserController@verifyRequests');
-    Route::post('verify/request/status/change{verify_request}/{status}','UserController@verify');
+    Route::get('all/verify/requests', 'UserController@verifyRequests');
+    Route::post('verify/request/status/change{verify_request}/{status}', 'UserController@verify');
 });
 
 Route::group(['middleware' => 'api', 'namespace' => 'User'], function ($router) {
@@ -209,13 +210,16 @@ Route::group(['middleware' => 'api'], function ($router) {
     /*
      * company related routes
      * */
-    Route::get('get/company/basic/info{user}','CompanyController@companyBasic');
-    Route::get('get/company/basic/info/by/display/name{display_name}','CompanyController@companyBasicByDisplayName');
-    Route::get('get/company/details/by/user{user}','CompanyController@companyDetails');
+    Route::get('get/company/basic/info{user}', 'CompanyController@companyBasic');
+    Route::get('get/company/basic/info/by/display/name{display_name}', 'CompanyController@companyBasicByDisplayName');
+    Route::get('get/company/details/by/user{user}', 'CompanyController@companyDetails');
 
 
     // Customer
     Route::resource('customer', 'CustomerController');
+
+    // Customer
+    Route::resource('advertisement', 'AdvertisementController');
 
     /*subscriber related routes*/
     Route::get('get/all/subscriber', 'SubscriberController@subscribers');

@@ -75,6 +75,22 @@
                 type="number" min="0" step="1"
         ></b-form-input>
       </b-form-group>
+      <b-form-group label="Amount :"
+                    label-cols-sm="5">
+        <b-form-input
+            class="form-control form-control-solid h-auto"
+            v-model="$v.form.amount.$model"
+            placeholder="Enter Amount"
+            type="number" min="0" step="0.01"
+            :state="validateState('amount')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.amount.required">
+          {{$t("message.packages.amount_required")}}
+        </b-form-invalid-feedback>
+      </b-form-group>
+      <b-form-group label="Others Benefits :" label-cols-sm="5">
+        <ckeditor :editor="editor" v-model="form.benefit" :config="editorConfig"></ckeditor>
+      </b-form-group>
       <CRow class="justify-content-end">
         <CCol col="4" sm="4" md="3" class="mb-3 mb-xl-0">
           <CButton block color="info" type="submit" :disabled="form.busy">
@@ -94,6 +110,7 @@
 <script>
   import {validationMixin} from 'vuelidate'
   import {maxLength, required} from 'vuelidate/lib/validators'
+  import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
   export default {
     name: 'Modal',
@@ -105,13 +122,17 @@
         form: new Form({
           id: '',
           name: '',
+          benefit: '',
           duration: '',
           buffer_time: '',
           no_of_allowed_products: '',
           no_of_allowed_keywords: '',
           no_of_allowed_rfq: '',
-          no_of_top_adds: ''
-        })
+          no_of_top_adds: '',
+          amount: '',
+        }),
+        editor: ClassicEditor,
+        editorConfig: {},
       }
     },
     validations: {
@@ -125,7 +146,10 @@
         },
         no_of_allowed_keywords: {
           required
-        }
+        },
+        amount: {
+          required
+        },
       }
     },
     methods: {

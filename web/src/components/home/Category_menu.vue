@@ -64,8 +64,8 @@
                 <li class="nav-item">
                   <a class="nav-link" href="#" v-b-modal.modal-1>{{ $t("message.category_menu.submit_RFQ") }}</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">{{ $t("message.category_menu.sell_tizaara") }} </a>
+                <li class="nav-item" v-if="!isAuthenticated">
+                  <a class="nav-link" @click.prevent="openReg" href="join">{{ $t("message.category_menu.sell_tizaara") }} </a>
                 </li>
               </ul>
             </div><!-- .main-menu end -->
@@ -238,6 +238,9 @@ export default {
   methods: {
     showImage(e) {
       return api_base_url + e;
+    },
+    openReg(){
+      Fire.$emit('registrationModal')
     },
     loadSlider(data) {
       if (!$.isEmptyObject(data)) {

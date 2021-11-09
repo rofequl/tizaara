@@ -213,6 +213,18 @@ export default new Router({
             ]
         },
         {
+            path: "/advertisement",
+            component: () => import("@/components/layout/Layout"),
+            children: [
+                {
+                    meta: {title: 'Advertisement Manage'},
+                    path: "/advertisement",
+                    name: "advertisement",
+                    component: () => import("@/components/Advertisement")
+                },
+            ]
+        },
+        {
             path: "/marketing",
             component: () => import("@/components/layout/Layout"),
             children: [

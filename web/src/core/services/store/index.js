@@ -38,6 +38,7 @@ import productFavorites from "./module/productFavorites";
 import message from "./module/message";
 import dashboard from "./module/dashboard";
 import cart from "./module/cart";
+import advertisement from "@/core/services/store/module/advertisement";
 
 Vue.use(Vuex)
 
@@ -81,5 +82,6 @@ export default new Vuex.Store({
         productFavorites,
         message,
         dashboard,
+        advertisement,
     }
 })

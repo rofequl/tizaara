@@ -20,6 +20,7 @@
         <div class="card">
           <div class="card-body text-center">
             <p class="mb-3 h6 fw-600">{{ data.name }}</p>
+            <p class="h4">{{ data.amount }} BDT</p>
             <p class="fs-15">{{$t("message.membership_plan.allowed_products")}}
               <b class="text-bold">{{ data.no_of_allowed_products }}</b>
             </p>
@@ -29,6 +30,7 @@
             <p class="fs-15">{{$t("message.membership_plan.duration")}}
               <b class="text-bold">{{ data.duration }} {{$t("message.membership_plan.days")}}</b>
             </p>
+            <p class="fs-15" v-html="data.benefit"></p>
             <div class="mar-top">
               <button @click="openModalEdit(data)" class="btn btn-sm btn-info mx-1">{{$t("message.membership_plan.edit")}}</button>
               <button @click="deleteData(data.id)" class="btn btn-sm btn-danger mx-1">{{$t("message.membership_plan.delete")}}</button>

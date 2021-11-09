@@ -3,6 +3,7 @@
     <Loader v-if="loading"/>
     <div v-if="!loading">
       <CategoryMenu/>
+      <advertisement/>
       <Deal/>
       <Cat_product/>
       <Testimonial/>
@@ -32,6 +33,8 @@ import {BRAND_LIST} from "@/core/services/store/module/brand";
 import FindSupplierFromTopCity from "./home/FindSupplierFromTopCity";
 import {mapGetters} from "vuex";
 import {CITY_LIST, TOP_CITY_LIST} from "../core/services/store/module/city";
+import Advertisement from "@/components/home/Advertisement";
+import {ADVERTISEMENT_LIST} from "@/core/services/store/module/advertisement";
 
 export default {
   name: "Home",
@@ -55,9 +58,11 @@ export default {
     this.brandList.length < 1 ? this.$store.dispatch(BRAND_LIST) : '';
     this.brandList.length < 1 ? this.$store.dispatch(BRAND_LIST) : '';
     this.cityList.length < 1 ? this.$store.dispatch(CITY_LIST) : '';
+    this.advertisementList.length < 1 ? this.$store.dispatch(ADVERTISEMENT_LIST) : '';
     this.$store.dispatch(TOP_CITY_LIST);
   },
   components: {
+    Advertisement,
     CategoryMenu,
     Deal,
     Brands,
@@ -69,7 +74,7 @@ export default {
     Loader
   },
   computed: {
-    ...mapGetters(["categoryList", "subcategoryList", "cityList", "subsubcategoryList", "brandList", "homeCategoryProduct", "getHomeBanner"])
+    ...mapGetters(["categoryList", "subcategoryList", "cityList", "subsubcategoryList", "brandList", "homeCategoryProduct", "getHomeBanner", "advertisementList"])
   },
 }
 </script>

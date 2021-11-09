@@ -56,18 +56,20 @@
       </div>
       <div v-else class="row">
         <div v-for="(data, k) in membershipPlans.data" :key="k" class="col-md-4 col-sm-6 plan-card">
-          <div :class="['pricingTable', {'blue': k == 1}, {'green': k == 2}]">
+          <div :class="['pricingTable', {'blue': k == 1}, {'green': k == 2}]" class="w-100">
             <div class="pricingTable-header">
               <h3 class="title">{{ data.name }}</h3>
+              <h5 class="font-weight-bold">{{ data.amount }} BDT</h5>
               <div class="price-value">
                 <!--                <span class="amount">$10.99</span>-->
                 <span class="duration">{{ data.duration }} {{ $t("message.membership_plan.days") }}</span>
               </div>
             </div>
-            <ul class="pricing-content">
+            <ul class="pricing-content w-50">
               <li><b>{{ data.no_of_allowed_products }}</b> {{ $t("message.membership_plan.allowed_products") }}</li>
               <li><b>{{ data.no_of_allowed_keywords }}</b> {{ $t("message.membership_plan.allowed_keywords") }}</li>
             </ul>
+            <div class="w-75 mx-auto" v-html="data.benefit"></div>
             <div class="pricingTable-signup">
               <a href="javascript:void(0)" @click="handleSignup(data)">{{ $t("message.membership_plan.sign_up") }}</a>
             </div>
